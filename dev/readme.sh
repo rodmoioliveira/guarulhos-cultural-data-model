@@ -18,11 +18,11 @@ This repo contains the initial data model to store information on Guarulhos's cu
 
 ## Queries
 
-Generate table [csv/ficha_tecnica_joins.csv](https://github.com/rodmoioliveira/guarulhos-cultural-data-model/blob/main/csv/ficha_tecnica_joins.csv):
+Generate table [views/ficha_tecnica_joins.csv](https://github.com/rodmoioliveira/guarulhos-cultural-data-model/blob/main/views/ficha_tecnica_joins.csv):
 
 \`\`\`sh
-rm csv/ficha_tecnica_joins.csv
-csvq -s sql/ficha_tecnica_joins.sql -f CSV -o csv/ficha_tecnica_joins.csv
+rm views/ficha_tecnica_joins.csv
+csvq -s sql/ficha_tecnica_joins.sql -f CSV -o views/ficha_tecnica_joins.csv
 \`\`\`
 
 Select all records:
@@ -33,10 +33,10 @@ csvq -f BOX '
     evento_nome,
     artista,
     funcao_nome
-  FROM \`csv/ficha_tecnica_joins.csv\`;
+  FROM \`views/ficha_tecnica_joins.csv\`;
 '
 
-$(csvq -f BOX 'SELECT evento_nome, artista, funcao_nome FROM `csv/ficha_tecnica_joins.csv`;')
+$(csvq -f BOX 'SELECT evento_nome, artista, funcao_nome FROM `views/ficha_tecnica_joins.csv`;')
 \`\`\`
 
 
@@ -48,11 +48,11 @@ csvq -f BOX '
     evento_nome,
     artista,
     funcao_nome
-  FROM \`csv/ficha_tecnica_joins.csv\`
+  FROM \`views/ficha_tecnica_joins.csv\`
   WHERE artista_id = 7;
 '
 
-$(csvq -f BOX 'SELECT evento_nome, artista, funcao_nome FROM `csv/ficha_tecnica_joins.csv` WHERE artista_id = 7;')
+$(csvq -f BOX 'SELECT evento_nome, artista, funcao_nome FROM `views/ficha_tecnica_joins.csv` WHERE artista_id = 7;')
 \`\`\`
 
 EOF
