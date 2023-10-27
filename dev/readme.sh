@@ -18,7 +18,7 @@ This repo contains the initial data model to store information on Guarulhos's cu
 
 ## Queries
 
-Generate table [csv\ficha_tecnica_joins.csv](\csv\ficha_tecnica_joins.csv):
+Generate table [csv/ficha_tecnica_joins.csv](https://github.com/rodmoioliveira/guarulhos-cultural-data-model/blob/main/csv/ficha_tecnica_joins.csv):
 
 \`\`\`sh
 rm csv/ficha_tecnica_joins.csv
@@ -27,7 +27,7 @@ csvq -s sql/ficha_tecnica_joins.sql -f CSV -o csv/ficha_tecnica_joins.csv
 
 Select all records:
 
-\`\`\`sh
+\`\`\`txt
 csvq -f BOX '
   SELECT
     evento_nome,
@@ -42,7 +42,7 @@ $(csvq -f BOX 'SELECT evento_nome, artista, funcao_nome FROM `csv/ficha_tecnica_
 
 Select by \`artista_id\`:
 
-\`\`\`sh
+\`\`\`txt
 csvq -f BOX '
   SELECT
     evento_nome,
