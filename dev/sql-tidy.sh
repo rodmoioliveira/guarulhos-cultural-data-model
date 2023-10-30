@@ -7,7 +7,7 @@ set -o nounset
 set -o pipefail
 
 sql-tidy() {
-  find . \
+  find sql \
     -type f \
     -name "*.sql" \
     -exec sqlformat --keywords upper --reindent --indent_width 2 -o {} {} \;

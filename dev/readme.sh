@@ -14,47 +14,33 @@ This repo contains the initial data model to store information on Guarulhos's cu
 
 ## Dependencies
 
- - [csvq](https://github.com/mithrandie/csvq)
+ - [docker](https://docs.docker.com/engine/install/)
+ - [clickhouse-client](https://clickhouse.com/docs/en/install#install-clickhouse-server-and-client)
 
-## Queries
-
-Generate table [views/ficha_tecnica_joins.csv](https://github.com/rodmoioliveira/guarulhos-cultural-data-model/blob/main/views/ficha_tecnica_joins.csv):
-
-\`\`\`sh
-rm views/ficha_tecnica_joins.csv
-csvq -s sql/ficha_tecnica_joins.sql -f CSV -o views/ficha_tecnica_joins.csv
-\`\`\`
-
-Select all records:
+## Running
 
 \`\`\`txt
-csvq -f BOX '
-  SELECT
-    evento_nome,
-    artista,
-    funcao_nome
-  FROM \`views/ficha_tecnica_joins.csv\`;
-'
+make clickhouse-stop
+make clickhouse-create
+clickhouse-client \\
+  --host localhost \\
+  --max_insert_threads 16 \\
+  --max_final_threads 16 \\
+  --format CSVWithNames \\
+  --multiquery \\
+  --query "use cultura; SELECT * FROM cultura.ficha_tecnica_joined;" |
+  mlr --icsv --opprint cat
 
-$(csvq -f BOX 'SELECT evento_nome, artista, funcao_nome FROM `views/ficha_tecnica_joins.csv`;')
+$(cat views/ficha_tecnica_joined.csv | mlr --icsv --opprint cat)
 \`\`\`
 
-
-Select by \`artista_id\`:
+## Make Recipes
 
 \`\`\`txt
-csvq -f BOX '
-  SELECT
-    evento_nome,
-    artista,
-    funcao_nome
-  FROM \`views/ficha_tecnica_joins.csv\`
-  WHERE artista_id = 7;
-'
+make help
 
-$(csvq -f BOX 'SELECT evento_nome, artista, funcao_nome FROM `views/ficha_tecnica_joins.csv` WHERE artista_id = 7;')
+$(make help)
 \`\`\`
-
 EOF
 
   sd '(make\[1\]:.+\n)' '' README.md
