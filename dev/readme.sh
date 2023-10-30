@@ -20,7 +20,7 @@ This repo contains the initial data model to store information on Guarulhos's cu
 ## Running
 
 \`\`\`txt
-make clickhouse-stop
+make clickhouse-run
 make clickhouse-create
 clickhouse-client \\
   --host localhost \\
